@@ -150,7 +150,12 @@
                         $('#volumeBar').attr('aria-valuenow',data['Volume']).css('width', data['Volume']+'%');
                         currTrack = data['title'];
                     }
-                    $('#player-info').text(data['PlayerName']+': ' + data['PlayerStatus'] +' @ Volume: ' +data['Volume'] +' Uri: ' +data['CurrentStation']);
+                    if (document.documentElement.clientWidth>1024) {
+                        $('#player-info').text(data['PlayerName']+': ' + data['PlayerStatus'] +' @ Volume: ' +data['Volume'] +' Uri: ' +data['CurrentStation']);
+                    } else {
+                        $('#player-info').text(data['PlayerName']+': ' + data['PlayerStatus'] +' @ Volume: ' +data['Volume']);
+                    }
+
 
                 });
             }
