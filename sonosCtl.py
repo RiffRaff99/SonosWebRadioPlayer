@@ -21,6 +21,9 @@ class sonosCtl:
 
     def setActivePlayer(self, playerName):
         self.selectedPlayerIp = self.players.get(playerName)
+    def play(self):
+        sonos = SoCo(self.selectedPlayerIp)
+        sonos.play()
 
     def playIt(self,uri,sonosDevice):
         sonosDevice.clear_queue()

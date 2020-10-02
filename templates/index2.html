@@ -51,8 +51,10 @@
 
                     <button type="button" class="btn btn-info btn-lg" id="volup"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Volume</button>
                 <button type="button" class="btn btn-info btn-lg" id="voldown"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Volume</button>
+                <button type="button" class="btn btn-info btn-lg" id="btnplay"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Play</button>
                 <button type="button" class="btn btn-info btn-lg" id="pause"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span> Stop</button>
                 <button type="button" class="btn btn-danger btn-lg" id="pauseall"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span> Stop All</button>
+
 
             </div>
 
@@ -176,6 +178,10 @@
 
                 $('#pause').click(function() {
                         $.ajax('/pause');
+                });
+
+                $('#btnplay').click(function() {
+                        $.ajax('/playButton');
                 });
 
                 $('#pauseall').click(function() {

@@ -10,6 +10,11 @@ app.config.from_pyfile("settings.py")
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
+@app.route("/playButton")
+def playButton():
+    zoneCtl.play()
+    return "Ok"
+
 @app.route("/stationlist", methods=["Get"])
 def stationList():
     return(json.dumps(stations.list()))
