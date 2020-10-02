@@ -22,31 +22,38 @@ class sonosCtl:
     def setActivePlayer(self, playerName):
         self.selectedPlayerIp = self.players.get(playerName)
 
+    def playIt(self,uri,sonosDevice):
+        sonosDevice.clear_queue()
+        sonosDevice.add_uri_to_queue(uri,1,False)
+        #sonosDevice.next()
+        if not sonosDevice.get_current_transport_info()['current_transport_state'] == 'PLAYING':
+         sonosDevice.play()
+
     def playOnSonos(self, uri, playerName = ""):
         if playerName == "":
             sonos = SoCo(self.selectedPlayerIp)
-            sonos.play_uri(uri)
+            self.playIt(uri,sonos)
             return
 
-        if playerName == "@All":
+        if playerName == self.ALL_PLAYERS:
             for k, v in self.players.items():
-                self.setActivePlayer(k)
-                self.playOnSonos(uri)
+                self.playIt(uri,SoCo(self.players.get(k)))
             return
 
         if not playerName == "":
-            sonos = SoCo(self.players.get(playerName))
-            sonos.play_uri(uri)
+            self.playIt(uri,SoCo(self.players.get(playerName)))
             return
 
     def stopAllSonos(self):
         for k, v in self.players.items():
             sonos = SoCo(v)
-            sonos.pause()
+            #sonos.pause()
+            sonos.stop()
 
     def pauseSonos(self):
         sonos = SoCo(self.selectedPlayerIp)
-        sonos.pause()
+        #sonos.pause()
+        sonos.stop()
 
     def changeVolume(self, how):
         sonos = SoCo(self.selectedPlayerIp)

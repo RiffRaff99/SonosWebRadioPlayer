@@ -1,4 +1,4 @@
-
+import logging
 import json
 from radioStation import radioStation
 from sonosCtl import sonosCtl
@@ -7,16 +7,12 @@ from flask import request
 
 app = Flask(__name__)
 app.config.from_pyfile("settings.py")
-#sonos = SoCo(app.config["SPEAKER_IP"])
-#sonosDevices={"Wohnzimmer":"192.168.178.26","Musikzimmer":"192.168.178.36"}
-#sonos = SoCo('192.168.178.26')
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
-"""
-class currentPlayerSelector:
-    def __init__(self):
-        self.player="192.168.178.26"
-        self.players={"Wohnzimmer":"192.168.178.26","Musikzimmer":"192.168.178.36"}
-"""
+@app.route("/stationlist", methods=["Get"])
+def stationList():
+    return(json.dumps(stations.list()))
 
 @app.route("/switchPlayer", methods=["Post"])
 def switchMediaPlayer():
@@ -64,4 +60,4 @@ def index():
 if __name__ == "__main__":
     stations = radioStation()
     zoneCtl = sonosCtl()
-    app.run(debug=False)
+    app.run(debug=False,host= '0.0.0.0')

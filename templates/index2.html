@@ -73,7 +73,7 @@
         -->
         <div class="col-sm-4 col-md-2">
             <div class="thumbnail">
-                <img data-src="holder.js/100%x200" alt="100%x200" style="height: 100px; width: 100%; display: block;" src="../static/img/{{ key }}.jpg" data-holder-rendered="true">
+                <img data-src="holder.js/100%x200" alt="100%x200" style="height: 100px; width: 100%; display: block;" src="../static/img/{{ key }}.JPG" data-holder-rendered="true">
                 <div class="caption">
                     <h4>{{ key }}</h4>
                     <div class="btn-group">
@@ -109,7 +109,7 @@
             function playThisUri(stationName,uriToPlay,playerName) {
                 $.ajax(
                         {type : 'POST',
-                        url : 'http://127.0.0.1:5000/playuri',
+                        url : '/playuri',
                         data: '{"station":"' +stationName +'", "uri":"' + uriToPlay + '", "player":"' +playerName + '"}',
                         contentType: 'application/json;charset=UTF-8'
                      });
@@ -120,7 +120,7 @@
             function switchPlayer(PlayerName) {
                 $.ajax(
                         {type : 'POST',
-                        url : 'http://127.0.0.1:5000/switchPlayer',
+                        url : '/switchPlayer',
                         data: '{"PlayerName":"' +PlayerName +'"}',
                         contentType: 'application/json;charset=UTF-8'
                      });
@@ -129,7 +129,7 @@
             }
 
             function loadData() {
-                $.getJSON('http://127.0.0.1:5000/info').done(function(data) {
+                $.getJSON('/info').done(function(data) {
                     var tmpTitle = data['title'];
                     var tmpArtist = data['artist'];
                     if (tmpArtist == "") {
@@ -160,40 +160,21 @@
                 setInterval("checkChange()", 1000);
 
                 $('#volup').click(function() {
-                    $.ajax('http://127.0.0.1:5000/volup');
-                    loadData();
-                });
-
-                $('#pic').click(function() {
-                    $.ajax({type : 'POST',
-                            url : 'http://127.0.0.1:5000/playuri',
-                            data: '{"uri":"x-rincon-mp3radio://streams.egofm.de/egoFM-hq"}',
-                            contentType: 'application/json;charset=UTF-8'
-                     });
+                    $.ajax('/volup');
                     loadData();
                 });
 
                 $('#voldown').click(function() {
-                    $.ajax('http://127.0.0.1:5000/voldown');
-                    loadData();
-                });
-
-                $('#next').click(function() {
-                    $.ajax('http://127.0.0.1:5000/next');
-                    loadData();
-                });
-
-                $('#previous').click(function() {
-                    $.ajax('http://127.0.0.1:5000/previous');
+                    $.ajax('/voldown');
                     loadData();
                 });
 
                 $('#pause').click(function() {
-                        $.ajax('http://127.0.0.1:5000/pause');
+                        $.ajax('/pause');
                 });
 
                 $('#pauseall').click(function() {
-                        $.ajax('http://127.0.0.1:5000/pauseall');
+                        $.ajax('/pauseall');
                 });
             });
         </script>
