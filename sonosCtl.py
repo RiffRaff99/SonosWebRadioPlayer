@@ -52,6 +52,9 @@ class sonosCtl:
             sonos = SoCo(v)
             #sonos.pause()
             sonos.stop()
+    def setVolume(self,targetVol):
+        sonos = SoCo(self.selectedPlayerIp)
+        sonos.volume = targetVol
 
     def pauseSonos(self):
         sonos = SoCo(self.selectedPlayerIp)
