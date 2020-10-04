@@ -31,6 +31,12 @@ def play():
     zoneCtl.playOnSonos(uri,playerName)
     return "Ok"
 
+@app.route("/setVolume", methods=["POST"])
+def setVolume():
+        targetVol = request.json['targetVol']
+        zoneCtl.setVolume(targetVol)
+        return "Ok"
+
 @app.route("/pauseall")
 def pauseAll():
     zoneCtl.stopAllSonos()

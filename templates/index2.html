@@ -9,6 +9,7 @@
 
         <link href="{{ url_for('static', filename='bootstrap-3.4.1-dist/css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', filename='bootstrap-3.4.1-dist/css/bootstrap.css') }}" rel="stylesheet">
+      <link href="{{ url_for('static', filename='custom-range.css') }}" rel="stylesheet">
     <!-- Bootstrap
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
     -->
@@ -30,10 +31,17 @@
                     <h3 id="track-title"></h3>
                     <h4 id="track-artist"></h4>
                     <h4 id="track-album"></h4>
+                <!--
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" id="volumeBar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
                         Volume
                     </div>
+                </div>
+                -->
+                <div class="volume">
+                    <br>
+                    <h6 id="lblvolume">Volume</h6><input type="range" class="custom-range" min="0" max="100" step="1" id="rngvolume">
+                    <br>
                 </div>
                 <!-- Single button -->
                 <div class="btn-group">
@@ -149,7 +157,7 @@
                     else {
                         $('#track-title').text(tmpTitle);
                         $('#track-artist').text(tmpArtist);
-                        $('#volumeBar').attr('aria-valuenow',data['Volume']).css('width', data['Volume']+'%');
+                        $('#rngvolume').val(data['Volume']);
                         currTrack = data['title'];
                     }
                     if (document.documentElement.clientWidth>1024) {
@@ -186,6 +194,15 @@
 
                 $('#pauseall').click(function() {
                         $.ajax('/pauseall');
+                });
+
+                $('#rngvolume').change(function () {
+                    $.ajax(
+                        {type : 'POST',
+                        url : '/setVolume',
+                        data: '{"targetVol":"' +$(this).val() +'"}',
+                        contentType: 'application/json;charset=UTF-8'
+                    });
                 });
             });
         </script>
