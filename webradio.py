@@ -24,11 +24,11 @@ def switchMediaPlayer():
     zoneCtl.setActivePlayer(request.json['PlayerName'])
     return "Ok"
 
-@app.route("/playuri", methods=["POST"])
+@app.route("/playradio", methods=["POST"])
 def play():
     uri = request.json['uri']
     playerName = request.json['player']
-    zoneCtl.playOnSonos(uri,playerName)
+    zoneCtl.playRadioOnSonos(uri,playerName)
     return "Ok"
 
 @app.route("/setVolume", methods=["POST"])

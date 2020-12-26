@@ -26,13 +26,11 @@ class sonosCtl:
         sonos.play()
 
     def playIt(self,uri,sonosDevice):
-        sonosDevice.clear_queue()
-        sonosDevice.add_uri_to_queue(uri,1,False)
-        #sonosDevice.next()
-        if not sonosDevice.get_current_transport_info()['current_transport_state'] == 'PLAYING':
-         sonosDevice.play()
+        #sonosDevice.clear_queue()
+        qPos=sonosDevice.add_uri_to_queue(uri,0,False)-1
+        sonosDevice.play_from_queue(qPos,True)
 
-    def playOnSonos(self, uri, playerName = ""):
+    def playRadioOnSonos(self, uri, playerName = ""):
         if playerName == "":
             sonos = SoCo(self.selectedPlayerIp)
             self.playIt(uri,sonos)
@@ -52,6 +50,7 @@ class sonosCtl:
             sonos = SoCo(v)
             #sonos.pause()
             sonos.stop()
+
     def setVolume(self,targetVol):
         sonos = SoCo(self.selectedPlayerIp)
         sonos.volume = targetVol

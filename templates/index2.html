@@ -64,23 +64,21 @@
                 <button type="button" class="btn btn-danger btn-lg" id="pauseall"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span> Stop All</button>
 
 
+<div class="col-lg-6">
+    <div class="input-group">
+      <input type="text" class="form-control" id="uriInput" placeholder="URI to play">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" onclick="playThisUri('URI',document.getElementById('uriInput').value,'')">Go!</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+
+
+
             </div>
-
-
         </div>
 
         {% for key, value in stationList.items() %}
-        <!--
-        <div class="col-sm-4 col-md-2">
-            <div class="thumbnail">
-                <img data-src="holder.js/100%x200" alt="100%x200" style="height: 100px; width: 100%; display: block;" src="../static/img/{{ key }}.jpg" data-holder-rendered="true">
-                <div class="caption">
-                    <h4>{{ key }}</h4>
-                    <p><button class="btn" onclick="playThisUri('{{ key }}','{{ value }}')"> Play <span class="glyphicon glyphicon-play" aria-hidden="true"></span></button></p>
-                </div>
-            </div>
-        </div>
-        -->
         <div class="col-sm-4 col-md-2">
             <div class="thumbnail">
                 <img data-src="holder.js/100%x200" alt="100%x200" style="height: 100px; width: 100%; display: block;" src="../static/img/{{ key }}.JPG" data-holder-rendered="true">
@@ -119,7 +117,7 @@
             function playThisUri(stationName,uriToPlay,playerName) {
                 $.ajax(
                         {type : 'POST',
-                        url : '/playuri',
+                        url : '/playradio',
                         data: '{"station":"' +stationName +'", "uri":"' + uriToPlay + '", "player":"' +playerName + '"}',
                         contentType: 'application/json;charset=UTF-8'
                      });
